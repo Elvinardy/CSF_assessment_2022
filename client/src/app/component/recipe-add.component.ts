@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Route, Router } from '@angular/router';
+import { Recipe } from '../recipe';
 import { RecipeService } from '../recipe.service';
 import { RecipelistComponent } from './recipelist.component';
 
@@ -17,7 +18,8 @@ export class RecipeAddComponent implements OnInit {
   form!: FormGroup;
 
 
-  constructor(private fb: FormBuilder, private recipeSvc: RecipeService, private router: Router) { }
+  constructor(private fb: FormBuilder, private recipeSvc: RecipeService,
+    private router: Router) { }
 
   ngOnInit(): void {
    /*  this.resetForm(); */
@@ -33,18 +35,18 @@ export class RecipeAddComponent implements OnInit {
     })
   }
 
-  addUserInput() {
+  addIngredientInput() {
     const ctrl = new FormControl('',[Validators.required,
     Validators.minLength(3)]);
-    (<FormArray>this.form.get('ingredients')).push(ctrl);
+    (<FormArray>this.form.get('ingredient')).push(ctrl);
   }
 
   deleteInput(i: number) {
-    (<FormArray>this.form.get('ingredients')).removeAt(i);
+    (<FormArray>this.form.get('ingredient')).removeAt(i);
   }
 
   getFormArray(): FormArray {
-    return this.form.get('ingredients') as FormArray;
+    return this.form.get('ingredient') as FormArray;
   }
 
   goBack(): void{
@@ -52,6 +54,17 @@ export class RecipeAddComponent implements OnInit {
   }
 
   submitForm(): void {
+    let recipe: Recipe = {
+      title: this.form.value['title'],
+      image: this.form.value['image'],
+      ingredients: this.form.value['ingredient'],
+      instruction: this.form.value['instruction'],
+    };
+    this.recipeSvc.saveRecipe(recipe).then(() => {
+      this.router.navigate(['/']);
+      alert('your recipe is saved!');
+    }
+    )
 
   }
 

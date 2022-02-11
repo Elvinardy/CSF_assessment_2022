@@ -2,30 +2,47 @@
 <form [formGroup]="form">
   <table>
     <tr>
-      <td><label for="title">Title: </label></td>
+      <td><label for="title">Enter a New Recipe Here: </label></td>
       <td><input id="title" size="50" formControlName="title"></td>
     </tr>
-    <tr>
+    </table>
       <br>
-      <label>Ingredients: </label>
-      <ul class="ingredients">
-        <li *ngFor="let ing of getFormArray().controls">
-          <button type="'button" class="delete" title="delete-ingredient"
-          >x</button>
-        </li>
-      </ul>
-    <tr>
+        <mat-card-title>Ingredients: </mat-card-title>
+        <button type="button" (click)="addIngredientInput"
+        mat-icon-button color="warn"> <mat-icon>add</mat-icon></button>
+        <ng-container formArrayName="ingredient">
+          <ng-container *ngFor="let ing of getFormArray().controls;
+          let i = index">
+          <mat-form-field appearance="fill">
+            <mat-label>Enter your Ingredients here: </mat-label>
+            <input matInput formControlName="{{ i }}"/>
+            <button *ngIf="i > 0"
+              type="button" matSuffix
+              mat-icon-button
+              color="warn"
+              (click)="deleteInput(i)">
+            <mat-icon>remove</mat-icon>
+          </button>
+          </mat-form-field>
+          </ng-container>
+        </ng-container>
+
+
       <td><label for="instruction">Instruction: </label></td>
       <br>
-    <textarea id="instruction" cols="40" rows="5"
+    <textarea id="instruction" cols="50" rows="5"
     formControlName="instruction"></textarea>
-    </tr>
-  </table>
+
+
+
+      <td><label for="instruction">Image: </label><
+      <br>
+      <input id="title" size="50" formControlName="image">
   </form>
   <div class="justify-right">
     <br>
     <button type="button" [disabled]="form.invalid"
-    (click)="submitForm()">Submit</button>
+    (click)="submitForm()">Add</button>
     <button type="button" (click)="goBack()">Back</button>
 
     <!-- <section fxLayout fxLayoutAlign="space-between center">
