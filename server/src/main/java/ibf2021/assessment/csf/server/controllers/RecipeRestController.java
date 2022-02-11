@@ -3,11 +3,14 @@ package ibf2021.assessment.csf.server.controllers;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import ibf2021.assessment.csf.server.models.Recipe;
@@ -40,5 +43,16 @@ public class RecipeRestController {
                 .build();
 
                 return ResponseEntity.ok(jo.toString());
+    }
+
+    @CrossOrigin
+    @PostMapping(value="/api/recipe", produces=MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> saveRecipe(@RequestBody Recipe recipe) {
+
+        recipeSvc.addRecipe(recipe);
+
+        JsonObject jo = Json.createObjectBuilder()
+                        .add("status", "success").build();
+        return ResponseEntity.status(HttpStatus.CREATED).body(jo.toString());
     }
 }
