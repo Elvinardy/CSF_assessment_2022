@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { stringify } from 'querystring';
 import { Recipe, RecipeSummary } from '../recipe';
 import { RecipeService } from '../recipe.service';
 
@@ -9,11 +11,27 @@ import { RecipeService } from '../recipe.service';
 })
 export class RecipelistComponent implements OnInit {
 
-  recipelist: RecipeSummary[] = [];
+  recipeList: RecipeSummary[] = [];
 
-  constructor(private recipeService: RecipeService) { }
+  constructor(private recipeService: RecipeService, private router: Router) { }
 
   ngOnInit(): void {
+    this.getRecipes();
   }
 
+  navigateToRecipeList() {
+    this.router.navigate('/recipe',recipeId);
+  }
+
+  private getRecipes() {
+    this.recipeService.getAllRecipes()
+    .then((recipeList) => {
+      this.recipeList = recipeList.map (
+        (recipe: {
+          id: string,
+          title: string }) =>
+          ({ id: recipe.id, title: recipe.title} as RecipeSummary)
+      );
+    })
+  }
 }

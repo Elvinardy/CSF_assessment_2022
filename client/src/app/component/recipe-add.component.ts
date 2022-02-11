@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
+import { RecipeService } from '../recipe.service';
+import { RecipelistComponent } from './recipelist.component';
 
 @Component({
   selector: 'app-recipe-add',
@@ -7,9 +10,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RecipeAddComponent implements OnInit {
 
-  constructor() { }
+  @ViewChild(RecipelistComponent)
+  recipeList!: RecipelistComponent;
+
+  constructor(private recipeSvc: RecipeService, private router: Router) { }
 
   ngOnInit(): void {
+  }
+
+  addRecipe() {
+    const add = this.recipeList
   }
 
 }
