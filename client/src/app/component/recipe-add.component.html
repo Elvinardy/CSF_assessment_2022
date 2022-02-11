@@ -1,9 +1,38 @@
-<h2>Add a new Recipe</h2>
+<h2>Add a New Recipe</h2>
+<form [formGroup]="form">
+  <table>
+    <tr>
+      <td><label for="title">Title: </label></td>
+      <td><input id="title" size="50" formControlName="title"></td>
+    </tr>
+    <tr>
+      <br>
+      <label>Ingredients: </label>
+      <ul class="ingredients">
+        <li *ngFor="let ing of getFormArray().controls">
+          <button type="'button" class="delete" title="delete-ingredient"
+          >x</button>
+        </li>
+      </ul>
+    <tr>
+      <td><label for="instruction">Instruction: </label></td>
+      <br>
+    <textarea id="instruction" cols="40" rows="5"
+    formControlName="instruction"></textarea>
+    </tr>
+  </table>
+  </form>
+  <div class="justify-right">
+    <br>
+    <button type="button" [disabled]="form.invalid"
+    (click)="submitForm()">Submit</button>
+    <button type="button" (click)="goBack()">Back</button>
 
-<div class="space-around">
-  <app-recipelist>
-    <div class="justify-right">
-      <button type="button">Add</button>
-    </div>
-  </app-recipelist>
-</div>
+    <!-- <section fxLayout fxLayoutAlign="space-between center">
+      <div>
+         <button mat-button>Prev</button>
+         <button mat-button>Nex</button>
+       </div>
+       <button mat-button cdkFocusInitial mat-dialog-close>Close</button>
+   </section> -->
+  </div>
