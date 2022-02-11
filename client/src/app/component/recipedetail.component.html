@@ -1,1 +1,25 @@
-<p>recipedetail works!</p>
+<div>
+  <mat-card>
+    <mat-card-title> {{ recipe?.title}} </mat-card-title>
+    <img src="{{ recipe?.image }}"
+          alt="{{ recipe?.title }}">
+  <hr>
+  <h3>Ingredients</h3>
+  <mat-card-content>
+    <ol>
+      <li *ngFor="let ing of recipe?.ingredients">
+        {{ ing }}
+      </li>
+    </ol>
+  </mat-card-content>
+
+  <h3>Instructions</h3>
+  <mat-card-content>
+    <p>
+      {{recipe?.instruction}}
+    </p>
+  </mat-card-content>
+  <button class="btn-goback" (click)="goBack()">Go Back</button>
+  </mat-card>
+</div>
+

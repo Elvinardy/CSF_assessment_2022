@@ -1,11 +1,8 @@
-
 <div>
-<div *ngFor="let r of recipeList">
-[routerLink]="['/recipeId',r.recipeId]" class=""> <!--to direct to a new page according to Id-->
-<h3 class="recipe-list">{{ r.title }}</h3>
-</div>
+  <div *ngFor="let r of recipeList" [routerLink]="['/recipe',r.id]">
+    <h3 class="recipe-list">{{ r.title }}</h3>
+  </div>
 </div>
 <div class="justify-right">
-<button [routerLink]="['/add']">Add</button>
+  <button [routerLink]="['/add']" class="add-btn"(click)="navigateToAdd()">Add</button>
 </div>
-

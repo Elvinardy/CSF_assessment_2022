@@ -1,0 +1,22 @@
+.recipe-list {
+border: blue 1px solid;
+margin: 5px;
+padding: 5px;
+font-size: 2em;
+transition-duration: 300ms;
+transition-property: background-color, border, border-radius;
+transition-timing-function: linear;
+font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+text-align: center;
+}
+
+.recipe-list:hover {
+    background-color: orange;
+    border: black 1px solid;
+    border-radius: 8px;
+
+}
+
+.add-button {
+  align-items: center;
+}

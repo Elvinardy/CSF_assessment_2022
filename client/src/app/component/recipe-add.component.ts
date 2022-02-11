@@ -1,5 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { timeStamp } from 'console';
 import { RecipeService } from '../recipe.service';
 import { RecipelistComponent } from './recipelist.component';
 
@@ -13,9 +15,20 @@ export class RecipeAddComponent implements OnInit {
   @ViewChild(RecipelistComponent)
   recipeList!: RecipelistComponent;
 
-  constructor(private recipeSvc: RecipeService, private router: Router) { }
+  form!: FormGroup;
+
+  constructor(private fb: FormBuilder, private recipeSvc: RecipeService) { }
 
   ngOnInit(): void {
+   /*  this.resetForm(); */
+
+  }
+
+  createAddForm() {
+    this.form = this.fb.group({
+      title: this.fb.control('', [Validators.required, Validators.minLength(3)]),
+      ingredient: this.fb.array('',[Validators.required, Validators.minLength(3)]);
+    })
   }
 
   addRecipe() {
